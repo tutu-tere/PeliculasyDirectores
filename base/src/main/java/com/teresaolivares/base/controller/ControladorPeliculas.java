@@ -31,12 +31,13 @@ public class ControladorPeliculas {
   @GetMapping("/peliculas/{nombre}")
 
   public String obtenerPeliculaPorNombre(@PathVariable String nombre) {
-    String director = listaPeliculas.get(nombre);
-    if (director != null) {
-      return "La pelicula\"" + nombre + "\" fue dirigida por " + director;
-    } else {
-      return "«La película no se encuentra en nuestra lista.»";
+    for (String pelicula : listaPeliculas.keySet()) {
+      if (pelicula.equalsIgnoreCase(nombre)) {
+        String director = listaPeliculas.get(pelicula);
+        return "La pelicula\"" + pelicula + "\" fue dirigida por " + director;
+      }
     }
+    return "«La película no se encuentra en nuestra lista.»";
   }
 
   @GetMapping("/peliculas/director/{nombre}")
